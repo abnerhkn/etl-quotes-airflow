@@ -1,0 +1,15 @@
+[2025-08-15T19:49:29.132+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: etl_quotes.load_quotes_task manual__2025-08-15T19:49:16.812133+00:00 [queued]>
+[2025-08-15T19:49:29.139+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: etl_quotes.load_quotes_task manual__2025-08-15T19:49:16.812133+00:00 [queued]>
+[2025-08-15T19:49:29.139+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2025-08-15T19:49:29.152+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): load_quotes_task> on 2025-08-15 19:49:16.812133+00:00
+[2025-08-15T19:49:29.157+0000] {standard_task_runner.py:60} INFO - Started process 831 to run task
+[2025-08-15T19:49:29.162+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'etl_quotes', 'load_quotes_task', 'manual__2025-08-15T19:49:16.812133+00:00', '--job-id', '11', '--raw', '--subdir', 'DAGS_FOLDER/etl_quotes.py', '--cfg-path', '/tmp/tmpm8x318_j']
+[2025-08-15T19:49:29.164+0000] {standard_task_runner.py:88} INFO - Job 11: Subtask load_quotes_task
+[2025-08-15T19:49:29.180+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.8/site-packages/airflow/settings.py:194 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-08-15T19:49:29.215+0000] {task_command.py:423} INFO - Running <TaskInstance: etl_quotes.load_quotes_task manual__2025-08-15T19:49:16.812133+00:00 [running]> on host ce06bc1fd883
+[2025-08-15T19:49:29.319+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='etl_quotes' AIRFLOW_CTX_TASK_ID='load_quotes_task' AIRFLOW_CTX_EXECUTION_DATE='2025-08-15T19:49:16.812133+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-08-15T19:49:16.812133+00:00'
+[2025-08-15T19:49:29.352+0000] {logging_mixin.py:188} INFO - 100 registros inseridos na tabela 'quotes'
+[2025-08-15T19:49:29.352+0000] {python.py:201} INFO - Done. Returned value was: None
+[2025-08-15T19:49:29.367+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=etl_quotes, task_id=load_quotes_task, execution_date=20250815T194916, start_date=20250815T194929, end_date=20250815T194929
+[2025-08-15T19:49:29.414+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2025-08-15T19:49:29.435+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

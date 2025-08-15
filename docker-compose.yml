@@ -1,0 +1,42 @@
+services:
+  postgres:
+
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: abner.lima
+      POSTGRES_PASSWORD: dracarys
+      POSTGRES_DB: webscraping-quotes
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-db-volume:/var/lib/postgresql/data
+  airflow-webserver:
+    image: apache/airflow:2.8.1
+    depends_on:
+      - postgres
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://abner.lima:dracarys@postgres:5432/webscraping-quotes
+      AIRFLOW__CORE__FERNET_KEY: ''
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+      _PIP_ADDITIONAL_REQUIREMENTS: "beautifulsoup4 requests pandas psycopg2-binary"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ./plugins:/opt/airflow/plugins
+      - ./scripts:/opt/airflow/scripts
+    ports:
+      - "8080:8080"
+    command: standalone
+  streamlit:
+    image: python:3.10
+    working_dir: /app
+    volumes:
+      - ./streamlit-app:/app
+    ports:
+      - "8501:8501"
+    command: bash -c "pip install streamlit psycopg2 pandas && streamlit run app.py"
+
+volumes:
+  postgres-db-volume:

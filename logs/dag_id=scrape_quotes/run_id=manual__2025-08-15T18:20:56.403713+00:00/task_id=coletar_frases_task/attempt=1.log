@@ -1,0 +1,33 @@
+[2025-08-15T18:20:57.774+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: scrape_quotes.coletar_frases_task manual__2025-08-15T18:20:56.403713+00:00 [queued]>
+[2025-08-15T18:20:57.787+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: scrape_quotes.coletar_frases_task manual__2025-08-15T18:20:56.403713+00:00 [queued]>
+[2025-08-15T18:20:57.788+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 1
+[2025-08-15T18:20:57.804+0000] {taskinstance.py:2191} INFO - Executing <Task(PythonOperator): coletar_frases_task> on 2025-08-15 18:20:56.403713+00:00
+[2025-08-15T18:20:57.810+0000] {standard_task_runner.py:60} INFO - Started process 640 to run task
+[2025-08-15T18:20:57.816+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'scrape_quotes', 'coletar_frases_task', 'manual__2025-08-15T18:20:56.403713+00:00', '--job-id', '9', '--raw', '--subdir', 'DAGS_FOLDER/scrape_quotes.py', '--cfg-path', '/tmp/tmphp7x5m0x']
+[2025-08-15T18:20:57.818+0000] {standard_task_runner.py:88} INFO - Job 9: Subtask coletar_frases_task
+[2025-08-15T18:20:57.839+0000] {logging_mixin.py:188} WARNING - /home/airflow/.local/lib/python3.8/site-packages/airflow/settings.py:194 DeprecationWarning: The sql_alchemy_conn option in [core] has been moved to the sql_alchemy_conn option in [database] - the old setting has been used, but please update your config.
+[2025-08-15T18:20:57.884+0000] {task_command.py:423} INFO - Running <TaskInstance: scrape_quotes.coletar_frases_task manual__2025-08-15T18:20:56.403713+00:00 [running]> on host 2685816154f0
+[2025-08-15T18:20:58.001+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='scrape_quotes' AIRFLOW_CTX_TASK_ID='coletar_frases_task' AIRFLOW_CTX_EXECUTION_DATE='2025-08-15T18:20:56.403713+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-08-15T18:20:56.403713+00:00'
+[2025-08-15T18:20:58.495+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 199, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 216, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/scrape_quotes.py", line 21, in coletar_frases
+    df.to_csv(caminho_arquivo, index=False)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/core/generic.py", line 3772, in to_csv
+    return DataFrameRenderer(formatter).to_csv(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/formats/format.py", line 1186, in to_csv
+    csv_formatter.save()
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/formats/csvs.py", line 240, in save
+    with get_handle(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/common.py", line 859, in get_handle
+    handle = open(
+PermissionError: [Errno 13] Permission denied: '/opt/airflow/dags/quotes.csv'
+[2025-08-15T18:20:58.512+0000] {taskinstance.py:1138} INFO - Marking task as FAILED. dag_id=scrape_quotes, task_id=coletar_frases_task, execution_date=20250815T182056, start_date=20250815T182057, end_date=20250815T182058
+[2025-08-15T18:20:58.529+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 9 for task coletar_frases_task ([Errno 13] Permission denied: '/opt/airflow/dags/quotes.csv'; 640)
+[2025-08-15T18:20:58.551+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2025-08-15T18:20:58.576+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

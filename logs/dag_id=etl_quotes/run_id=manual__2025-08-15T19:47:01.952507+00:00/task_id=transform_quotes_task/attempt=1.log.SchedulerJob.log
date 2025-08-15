@@ -1,0 +1,1 @@
+[2025-08-15T19:47:03.771+0000] {scheduler_job_runner.py:781} ERROR - Executor reports task instance <TaskInstance: etl_quotes.transform_quotes_task manual__2025-08-15T19:47:01.952507+00:00 [queued]> finished (success) although the task says it's queued. (Info: None) Was the task killed externally?

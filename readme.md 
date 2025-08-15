@@ -1,0 +1,100 @@
+# 📝 Projeto ETL de Web Scraping de Frases
+
+Este projeto implementa um pipeline **ETL (Extract, Transform, Load)** usando **Apache Airflow** para coletar frases do site [Quotes to Scrape](https://quotes.toscrape.com/), armazená-las em um banco de dados **PostgreSQL** e exibi-las em um **dashboard interativo com Streamlit**.
+
+## 📌 Arquitetura
+
+![Arquitetura do Projeto](etl_quotes_architecture.png)
+
+1. **Extract** → O Airflow executa um script Python (`extract_quotes.py`) que faz scraping das frases e salva em `quotes.csv`.
+2. **Transform** → (Opcional neste projeto) Limpeza e padronização dos dados.
+3. **Load** → O Airflow executa um script (`load_quotes.py`) que insere os dados no PostgreSQL.
+4. **Visualização** → O Streamlit consome os dados do banco e exibe no dashboard.
+
+---
+
+## 🚀 Tecnologias Utilizadas
+- **Python 3.10**
+- **Apache Airflow 2.8.1**
+- **PostgreSQL**
+- **Streamlit**
+- **Docker & Docker Compose**
+- **BeautifulSoup4**
+- **Pandas**
+- **Requests**
+
+---
+
+## 📂 Estrutura de Pastas
+
+```
+.
+├── dags/                      # DAGs do Airflow
+│   ├── etl_quotes.py           # DAG principal do ETL
+│   └── ...
+├── scripts/                   # Scripts Python usados no ETL
+│   ├── extract_quotes.py
+│   ├── load_quotes.py
+│   └── ...
+├── streamlit-app/             # Aplicação Streamlit
+│   └── app.py
+├── plugins/                   # Plugins do Airflow (opcional)
+├── logs/                      # Logs do Airflow
+├── docker-compose.yml         # Configuração dos containers
+├── requirements.txt           # Dependências extras (opcional)
+└── README.md                  # Documentação do projeto
+```
+
+---
+
+## ⚙️ Como Executar o Projeto
+
+### 1️⃣ Pré-requisitos
+- **Docker** e **Docker Compose** instalados.
+- Porta `8080` (Airflow), `5433` (PostgreSQL) e `8501` (Streamlit) livres.
+
+### 2️⃣ Subir os serviços
+```bash
+docker compose up -d
+```
+
+Isso iniciará:
+- **PostgreSQL** (`localhost:5433`)
+- **Airflow Webserver** (`http://localhost:8080`)
+- **Streamlit App** (`http://localhost:8501`)
+
+### 3️⃣ Acessar o Airflow
+1. Entre no Airflow em `http://localhost:8080`
+2. Usuário padrão: `airflow` / Senha: `airflow` (ou o que você definiu)
+3. Ative a DAG `etl_quotes` e execute manualmente ou aguarde a execução diária.
+
+### 4️⃣ Visualizar no Streamlit
+Após o ETL carregar os dados no banco, acesse:
+```
+http://localhost:8501
+```
+O dashboard exibirá as frases e autores coletados.
+
+---
+
+## 📊 Fluxo do ETL
+
+1. **Extract**: `extract_quotes.py` → Faz scraping das páginas do site e salva `quotes.csv`.
+2. **Transform**: (Opcional) → Limpeza e formatação de dados.
+3. **Load**: `load_quotes.py` → Lê `quotes.csv` e insere no PostgreSQL.
+4. **Visualização**: `app.py` (Streamlit) → Consulta no PostgreSQL e exibe dados.
+
+---
+
+## 📌 Possíveis Melhorias
+- Implementar camada **Transform** para limpeza de dados.
+- Criar testes automatizados.
+- Usar **dbt** para modelagem e transformação no banco.
+- Adicionar gráficos no Streamlit.
+
+---
+
+## 📜 Licença
+Este projeto é de uso livre para estudos e fins acadêmicos.
+
+---
